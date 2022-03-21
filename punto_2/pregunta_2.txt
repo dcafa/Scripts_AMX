@@ -1,0 +1,10 @@
+Los parametros mas importantes a considerar son:
+- la memoria del driver que es quien recibe las transformaciones ya procesadas por los Ejecutores 
+- la memoria de los Executores que son los quienes transforman la informacion 
+- cantidad de ejecutores a utilizar en el proceso 
+
+estos parametros en el spark-submit se podrian indicar por ejemplo de la siguiente manera:
+--num-executors 50 --executor-memory 4G --driver-memory 50G
+
+Los resultados se podrian ingestar en archivos de tipo Parquet u ORC (con ORC tengo entendido que se logran mejores niveles de compresion).  
+

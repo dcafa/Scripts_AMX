@@ -1,0 +1,46 @@
+>>> DESCRIPCION y EJERCICIO (2)
+
+Partiendo de la tabla de hechos (event_fact_table) que es la que contiene el detalle de cada evento (actualmente con mil millones de registros)
+se crean las siguientes dos tablas dimensionales:
+
+1) tabla: dim_user_loguin_info
+	columnas:
+		> event_id (PK)	
+		> user_id
+		> server_time
+
+2) tabla: dim_user_day_activity
+	columnas:
+		> user_id (PK)
+		> fecha
+		> event_description
+		> occurrence
+		> max_time_spent
+
+setting de relaciones
+---------------------
+para relacionar dichas tablas en la fact_table se definien las siguientes constrains que enlacen la tabla de hechos con las tablas de dimensión:
+- para relacionar la fact_table con la tabla dim_user_loguin_info seteamos a la columna EVENT_ID en la fact_table como FK:
+	CONSTRAINT FK_eventID FOREIGN KEY REFERENCES user_loguin_info.event_id
+	
+- para relacionar la fact_table con la tabla dim_user_day_activity seteamos a la columna USER_ID en la fact_table como FK:
+	CONSTRAINT FK_userID FOREIGN KEY REFERENCES user_day_activity.user_id
+
+
+proceso de populate
+-------------------
+(NOTA: se supone que el campo EVENT_DESCRIPTION es del tipo Categoria)
+
+La tabla dim_user_loguin_info se puede llenar mediante el siguiente query:
+
+insert into dim_user_loguin_info (event_id,user_id,server_time)
+ select EVENT_ID,USER_ID,SERVER_TIME,ROW_NUMBER() OVER (PARTITION BY USER_ID ORDER BY SERVER_TIME ASC) rank from event_fact_table where EVENT_DESCRIPTION = 'loguin'  
+where rank = 1;
+
+La tabla dim_user_day_activity se puede llenar mediante el siguiente query:
+
+insert into dim_user_day_activity (user_id,fecha,event_description,occurrence,max_time_spent) 
+ select a.USER_ID,a.FECHA,a.EVENT_DESCRIPTION,sum(a.EVENT_ID) as occurrence,max(a.TIME_SPENT) as max_time_spent from (
+  select *,date(SERVER_TIME) as FECHA from event_fact_table 
+ ) a 
+ group by user_id,date,event_description

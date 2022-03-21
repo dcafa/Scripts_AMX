@@ -1,0 +1,6 @@
+Lo que se podria implementar para su correccion son script de depuracion en python que trabajen sobre dichas tablas y detecten las columnas 
+con problemas (regex) para luego corrigirlas (replace).
+
+Para su prevencion se podria desarrollar una app el Spark (dependiendo del volumen de informacion) 
+que trabaje con la inforamcion raw y calcular indicadores clave que permitan calificar la calidad de la informacion que se ingesta. Tambien se podria investigar la
+implementacion de apps ya desarrolladas para dicho fin como deequ (https://github.com/awslabs/deequ) o data-flare (https://github.com/timgent/data-flare)

@@ -1,0 +1,13 @@
+# <<NOTAS>>
+# script testeado en forma local
+# el script recibe como argumento el archivo de configuracion con la informacion del dataset a procesar
+# dataset delimitado: config_file1.ini
+# dataset ancho fijo: config_file2.ini
+# 
+# IMPORTANTE: 
+# para su ejecucion mediante spark-submit se setearon las siguientes variables de entorno dentro de C:\programas\spark\conf\spark-env.cmd mediante las siguientes lineas
+#	set PYSPARK_DRIVER_PYTHON=python
+#	set PYSPARK_DRIVER_PYTHON_OPTS=python
+#
+# modo de ejecucion:
+# > spark-submit spark_process.py --config_file_name=<config_file1.ini>

@@ -1,0 +1,24 @@
+los problemas tipicos en lo que se refiere a calidad de datos se deben principalmente a los siguientes factores
+
+- errores de escritura
+- espacios en blanco 
+- columnas de texto mal dimensionadas
+- columnas mal separadas por el delimitador 
+- manipulacion de valores nulos
+- deteccion de outliers (si corresponde)
+
+Para realizar el proceso de limpieza en principio se debe realizar una auditoria de los datos para que por medio de metodos estadisticos descubrir las anomalias (conocido como EDA).
+
+Las tecnologias a utilizar podrian ser principalmente:
+
+- Apache Spark (si la informacion esta distribuida dentro de un cluster),
+- Pandas que es una libreria que permite una alta manipulacion de la informacion (si el volumen de los datos lo permite)
+- tecnicas propias de SQL
+- scripting mediante regex desarrollados de manera especifica
+
+
+
+
+
+
+
